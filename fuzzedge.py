@@ -38,7 +38,7 @@ for root, dirs, files in os.walk(input_path):
 		# get the number of gray levels L
 		gray_levels = numpy.unique(img)
 		L = len(gray_levels)
-		# number of fuzzy sets = 3 (dark, median, bright)
+		# number of fuzzy sets (concepts) = 3 (dark, median, bright)
 		Nf = 3
 		left_overlap = 0
 		right_overlap = 0
