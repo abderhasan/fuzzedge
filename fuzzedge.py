@@ -48,14 +48,14 @@ for root, dirs, files in os.walk(input_path):
 		MD_begin = DK_end - left_overlap
 		MD_end = BR_begin + right_overlap
 
-		for i in range(0,DK_end):
+		for i in range(0,int(DK_end)):
 			if (img == i).sum() >= threshold:
 				DK_begin = i
 				break
 
 		DK_begin = 0
 
-		for i in range(BR_begin,L-1):
+		for i in range(int(BR_begin),L-1):
 			BRbegin_to_end.append(i)
 			BRbegin_to_end_pixel_frequency.append((img == i).sum())
 
@@ -73,10 +73,10 @@ for root, dirs, files in os.walk(input_path):
 				idx = idx + 1
 
 		# working on the interval [DK_begin,DK_end]
-		for i in range(DK_begin,DK_end+1):
+		for i in range(int(DK_begin),int(DK_end+1)):
 			gray_levels_DKbegin_DKend.append(i)
 
-		for i in range(DK_begin,DK_end+1):
+		for i in range(int(DK_begin),int(DK_end+1)):
 			gray_level_frequency_DKbegin_DKend.append((img == i).sum())
 
 		# number of pixels
@@ -93,10 +93,10 @@ for root, dirs, files in os.walk(input_path):
 		betaDK = DK_end - mDK
 
 		# working on the interval [MD_begin,MD_end]
-		for i in range(MD_begin,MD_end+1):
+		for i in range(int(MD_begin),int(MD_end+1)):
 			gray_levels_MDbegin_MDend.append(i)
 	
-		for i in range(MD_begin,MD_end+1):
+		for i in range(int(MD_begin),int(MD_end+1)):
 			gray_level_frequency_MDbegin_MDend.append((img == i).sum())
 
 		pixel_histogram = [float(x)/float(number_of_pixels) for x in gray_level_frequency_MDbegin_MDend]
@@ -109,10 +109,10 @@ for root, dirs, files in os.walk(input_path):
 		betaMD = MD_end - mMD
 
 		# working on the interval [BR_begin,BR_end]
-		for i in range(BR_begin,BR_end+1):
+		for i in range(int(BR_begin),int(BR_end+1)):
 			gray_levels_BRbegin_BRend.append(i)
 
-		for i in range(BR_begin,BR_end+1):
+		for i in range(int(BR_begin),int(BR_end+1)):
 			gray_level_frequency_BRbegin_BRend.append((img == i).sum())
 
 		pixel_histogram = [float(x)/float(number_of_pixels) for x in gray_level_frequency_BRbegin_BRend]
@@ -185,7 +185,7 @@ for root, dirs, files in os.walk(input_path):
 			# add zero-padding to the input image
 			image_padded = numpy.zeros((image.shape[0] + 2, image.shape[1] + 2)) 
 			image_padded[1:-1, 1:-1] = image
-			# Loop over each pixel in the image
+			# loop over each pixel in the image
 			for x in range(image.shape[1]):     
 				for y in range(image.shape[0]):
 					pixel_intensity = image[y,x]
@@ -202,6 +202,6 @@ for root, dirs, files in os.walk(input_path):
 
 			return output
 
-		# Convolve each kernel and the image
+		# convolve each kernel and the image
 		convolve_img = convolve(img)
 		cv2.imwrite(os.path.join(results, file + '-result.jpg'), convolve_img)
